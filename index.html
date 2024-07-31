@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indicador de Batería Mejorado</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: radial-gradient(circle at top left, #0033ff, #000000); /* Fondo radial con gradiente azul y negro */
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .battery-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .battery {
+            width: 250px;
+            height: 120px;
+            border: 5px solid #ffffff; /* Batería blanca */
+            border-radius: 10px;
+            position: relative;
+            background: #ffffff; /* Fondo blanco de la batería */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .battery:hover {
+            transform: scale(1.05);
+        }
+
+        .battery::after {
+            content: '';
+            width: 30px;
+            height: 70px;
+            background: #ffffff; /* Color blanco para la parte del terminal de la batería */
+            position: absolute;
+            top: 50%;
+            right: -20px;
+            transform: translateY(-50%);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Sombra para el terminal */
+        }
+
+        .battery-bar-container {
+            width: 100%;
+            height: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.05); /* Fondo ligero para las barras de carga */
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .battery-bar {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            background: #e0e0e0; /* Color de fondo de las barras */
+            border-radius: 5px;
+        }
+
+        .battery-bar-fill {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            position: absolute;
+            background: linear-gradient(to right, #4fc3f7, #039be5); /* Gradiente azul para la carga */
+            animation: fillBar 5s linear forwards;
+            transform-origin: left center;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra interna para efecto 3D */
+        }
+
+        @keyframes fillBar {
+            0% {
+                transform: scaleX(0);
+            }
+            100% {
+                transform: scaleX(1);
+            }
+        }
+
+        .battery-text {
+            position: absolute;
+            color: #000; /* Texto en negro para contraste */
+            font-size: 2.5em;
+            font-weight: bold;
+            z-index: 2;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Sombra para mejor contraste */
+            animation: textPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes textPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .loading-text {
+            font-size: 1.5em;
+            color: #ffffff;
+            margin-top: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-in-out;
+            text-align: center;
+        }
+
+        .spinner {
+            border: 8px solid rgba(243, 243, 243, 0.3); /* Fondo del spinner con transparencia */
+            border-top: 8px solid #4fc3f7; /* Color del spinner */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite, fadeIn 1s ease-in-out;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .battery {
+                width: 200px;
+                height: 100px;
+            }
+
+            .battery::after {
+                width: 25px;
+                height: 60px;
+                right: -15px;
+            }
+
+            .battery-text {
+                font-size: 2em;
+            }
+
+            .spinner {
+                width: 40px;
+                height: 40px;
+            }
+
+            .loading-text {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .battery {
+                width: 150px;
+                height: 80px;
+            }
+
+            .battery::after {
+                width: 20px;
+                height: 50px;
+                right: -10px;
+            }
+
+            .battery-text {
+                font-size: 1.5em;
+            }
+
+            .spinner {
+                width: 30px;
+                height: 30px;
+            }
+
+            .loading-text {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="battery-container">
+        <div class="battery">
+            <div class="battery-bar-container">
+                <div class="battery-bar">
+                    <div class="battery-bar-fill" id="battery-bar-fill"></div>
+                </div>
+                <span class="battery-text">100%</span>
+            </div>
+        </div>
+        <div class="loading-text">Cargando, espere...</div>
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        document.getElementById('battery-bar-fill').addEventListener('animationend', () => {
+            window.location.href = 'home.html';
+        });
+    </script>
+</body>
+</html>
