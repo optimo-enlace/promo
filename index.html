@@ -3,231 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pre-promo</title>
+    <title>Pre-promo 4to Año UGL_N.12</title>
+    <meta name="description" content="Página de presentación de los estudiantes de 4to Año de UGL_N.12">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
         body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,30,1) 100%);
+            background-size: 200% 200%;
+            animation: gradientAnimation 15s ease infinite;
+            position: relative;
+            z-index: 0;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        header {
+            background: rgba(30, 30, 30, 0.9); /* Fondo oscuro semi-transparente */
+            color: #4fc3f7;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #4fc3f7;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+            position: relative;
+            z-index: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
+        }
+
+        .header-title {
+            font-family: 'Montserrat', sans-serif; /* Fuente Montserrat */
+            font-size: 3em;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #4fc3f7;
             margin: 0;
-            background: radial-gradient(circle at top left, #0033ff, #000000); /* Fondo radial con gradiente azul y negro */
-            color: #ffffff;
-            font-family: 'Roboto', sans-serif;
+            position: relative;
+            display: inline-block;
+            padding: 10px;
+            background: linear-gradient(45deg, #4fc3f7, #1e88e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
         }
 
         .battery-container {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            animation: fadeIn 1s ease-in-out;
+            margin: 10px 0;
+            position: relative;
         }
 
         .battery {
-            width: 250px;
-            height: 120px;
-            border: 5px solid #ffffff; /* Batería blanca */
-            border-radius: 10px;
+            width: 70px;
+            height: 30px;
+            border: 3px solid #4fc3f7;
+            border-radius: 5px;
             position: relative;
-            background: #ffffff; /* Fondo blanco de la batería */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .battery:hover {
-            transform: scale(1.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
         }
 
         .battery::after {
             content: '';
-            width: 30px;
-            height: 70px;
-            background: #ffffff; /* Color blanco para la parte del terminal de la batería */
+            width: 8px;
+            height: 16px;
+            background: #4fc3f7;
             position: absolute;
             top: 50%;
-            right: -20px;
+            right: -10px;
             transform: translateY(-50%);
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Sombra para el terminal */
-        }
-
-        .battery-bar-container {
-            width: 100%;
-            height: 80%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.05); /* Fondo ligero para las barras de carga */
-            border-radius: 5px;
-            overflow: hidden;
+            border-radius: 2px;
         }
 
         .battery-bar {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            position: relative;
-            overflow: hidden;
-            background: #e0e0e0; /* Color de fondo de las barras */
-            border-radius: 5px;
+            width: 8px;
+            height: 20px;
+            background: #4fc3f7;
+            margin: 0 1px;
+            opacity: 0.3;
+            transition: opacity 0.5s;
         }
 
-        .battery-bar-fill {
-            height: 100%;
-            width: 100%;
-            display: flex;
-            position: absolute;
-            background: linear-gradient(to right, #4fc3f7, #039be5); /* Gradiente azul para la carga */
-            animation: fillBar 5s linear forwards;
-            transform-origin: left center;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra interna para efecto 3D */
+        .battery-bar.charge {
+            opacity: 1;
+            animation: pulse 1s infinite;
         }
 
-        @keyframes fillBar {
-            0% {
-                transform: scaleX(0);
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
             }
-            100% {
-                transform: scaleX(1);
+            50% {
+                opacity: 0.5;
             }
         }
 
         .battery-text {
-            position: absolute;
-            color: #000; /* Texto en negro para contraste */
-            font-size: 2.5em;
-            font-weight: bold;
-            z-index: 2;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Sombra para mejor contraste */
-            animation: textPulse 1s ease-in-out infinite;
+            margin-left: 10px;
+            font-size: 1.2em;
+            color: #4fc3f7;
         }
 
-        @keyframes textPulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .loading-text {
-            font-size: 1.5em;
-            color: #ffffff;
-            margin-top: 20px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1s ease-in-out;
+        .student-card {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background: rgba(31, 31, 31, 0.9); /* Fondo oscuro semi-transparente */
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            margin: 10px;
+            max-width: 280px;
+            padding: 15px;
             text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: #e0e0e0;
+            position: relative;
+            overflow: hidden;
         }
 
-        .spinner {
-            border: 8px solid rgba(243, 243, 243, 0.3); /* Fondo del spinner con transparencia */
-            border-top: 8px solid #4fc3f7; /* Color del spinner */
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite, fadeIn 1s ease-in-out;
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+        }
+
+        .card img {
+            border-radius: 50%; /* Hace que las imágenes sean circulares */
+            width: 120px; /* Tamaño estándar de las imágenes */
+            height: 120px;
+            object-fit: cover; /* Asegura que la imagen se recorte y ajuste bien al contenedor */
+            margin-bottom: 15px;
+            border: 3px solid #4fc3f7;
+        }
+
+        .card h3 {
+            margin: 0;
+            color: #4fc3f7;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.9em;
+            margin: 10px 0;
+            color: #b0b0b0;
+        }
+
+        .card a {
+            display: inline-block;
             margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 8px 16px;
+            color: #fff;
+            background: #4fc3f7;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
         }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+        .card a:hover {
+            background: #039be5;
+            color: #fff;
         }
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+        footer {
+            background: rgba(30, 30, 30, 0.9); /* Fondo oscuro semi-transparente */
+            color: #e0e0e0;
+            text-align: center;
+            padding: 20px;
+            border-top: 5px solid #4fc3f7;
+            box-shadow: 0 -4px 8px rgba(0,0,0,0.6);
+            z-index: 1;
         }
 
         @media (max-width: 768px) {
-            .battery {
-                width: 200px;
+            .student-card {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                max-width: 90%;
+            }
+
+            .card img {
+                width: 100px; /* Tamaño de las imágenes en pantallas pequeñas */
                 height: 100px;
             }
 
-            .battery::after {
-                width: 25px;
-                height: 60px;
-                right: -15px;
-            }
-
-            .battery-text {
-                font-size: 2em;
-            }
-
-            .spinner {
-                width: 40px;
-                height: 40px;
-            }
-
-            .loading-text {
+            .card h3 {
                 font-size: 1.2em;
             }
-        }
 
+            .card p {
+                font-size: 0.8em;
+            }
+
+            .card a {
+                padding: 6px 12px;
+                font-size: 0.9em;
+            }
+
+            header {
+                font-size: 0.9em;
+                padding: 15px;
+            }
+
+            footer {
+                font-size: 0.8em;
+                padding: 15px;
+            }
+        }
+        
         @media (max-width: 480px) {
-            .battery {
-                width: 150px;
+            .card {
+                max-width: 95%;
+                padding: 10px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+            }
+
+            .card img {
+                width: 80px; /* Tamaño aún más pequeño en pantallas muy pequeñas */
                 height: 80px;
             }
 
-            .battery::after {
-                width: 20px;
-                height: 50px;
-                right: -10px;
+            .card h3 {
+                font-size: 1.1em;
             }
 
-            .battery-text {
-                font-size: 1.5em;
+            .card p {
+                font-size: 0.7em;
             }
 
-            .spinner {
-                width: 30px;
-                height: 30px;
+            .card a {
+                padding: 4px 8px;
+                font-size: 0.8em;
             }
 
-            .loading-text {
-                font-size: 1em;
+            header {
+                font-size: 0.8em;
+                padding: 10px;
+            }
+
+            footer {
+                font-size: 0.7em;
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="battery-container">
-        <div class="battery">
-            <div class="battery-bar-container">
-                <div class="battery-bar">
-                    <div class="battery-bar-fill" id="battery-bar-fill"></div>
-                </div>
-                <span class="battery-text">100%</span>
+    <header>
+        <h1 class="header-title">Pre-promo 4to Año</h1>
+        <div class="battery-container">
+            <div class="battery">
+                <div class="battery-bar charge"></div>
+                <div class="battery-bar charge"></div>
+                <div class="battery-bar charge"></div>
+                <div class="battery-bar charge"></div>
+                <div class="battery-bar"></div>
             </div>
+            <div class="battery-text">Cargando 75%</div>
         </div>
-        <div class="loading-text">Cargando, espere...</div>
-        <div class="spinner"></div>
+    </header>
+    <div class="container">
+        <section class="student-card">
+            <div class="card">
+                <img src="images/dilan.jpg" alt="Dilan">
+                <h3>Dilan</h3>
+                <p>Cursa en la UGL-N.12. Tengo muchas metas y sueños; me gusta la tecnología y pasar tiempo con mis amigos y familia. Quiero estudiar ingeniería de software o ciberseguridad. Tal vez vivimos en el mismo planeta, pero cada persona está en su propio mundo.</p>
+                <a href="https://www.instagram.com/dilanenriquez50?igsh=d3hieDllbjR0aHlu" target="_blank">Ver Perfil</a>
+            </div>
+            <div class="card">
+                <img src="images/1.jpg" alt="Caty">
+                <h3>Caty</h3>
+                <p>Cursa en la UGL-N.12. Mi gran sueño es entrar en una de las fuerzas de este país. Me encanta pasar momentos con amigos y familia, y una de las cosas que más amo es ser profesora de taekwondo.</p>
+                <a href="https://www.instagram.com/benitezkaty255?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">Ver Perfil</a>
+            </div>
+            <div class="card">
+                <img src="images/1.jpg" alt="Yoni">
+                <h3>Yoni</h3>
+                <p>Cursa en la UGL-N.12. Mi gran sueño es ser militar; es uno de los sueños más importantes de mi vida. Amo jugar fútbol, es algo que logro mejorar día a día. Soy un chico muy alegre y chistoso, y me gusta pasar tiempo con amigos y familia.</p>
+                <a href="https://www.instagram.com/jhonymartinez784/?utm_source=ig_web_button_share_sheet" target="_blank">Ver Perfil</a>
+            </div>
+            <div class="card">
+                <img src="images/1.jpg" alt="Agus">
+                <h3>Agus</h3>
+                <p>Cursa en la UGL-N.12. Sueña con ser policía. Le gusta pasar el tiempo con amigos y familia. Soy una persona curiosa y amigable, aunque a veces un poco argel. Me encanta aprender cosas nuevas y ayudar a los demás. Mi frase para ustedes es que, para lograr tus sueños, debes seguir esforzándote y creyendo en ti mismo.</p>
+                <a href="https://www.instagram.com/agus_benitez_99/?utm_source=ig_web_button_share_sheet" target="_blank">Ver Perfil</a>
+            </div>
+            <div class="card">
+                <img src="images/1.jpg" alt="Junior">
+                <h3>Junior</h3>
+                <p>Cursa en la UGL-N.12. Soy un chico que sueña poco; vivo la vida día a día. Me gustan los deportes, salir de fiesta y pasarla bien.</p>
+                <a href="https://www.instagram.com/yunior_oliveira_12?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">Ver Perfil</a>
+            </div>
+        </section>
     </div>
-
-    <script>
-        document.getElementById('battery-bar-fill').addEventListener('animationend', () => {
-            window.location.href = 'home.html';
-        });
-    </script>
+    <footer>
+        <p>© 2024 <span style="font-weight: bold; color: #4fc3f7;">Pre-promo 4to Año UGL-N.12</span></p>
+    </footer>
 </body>
 </html>
