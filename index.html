@@ -35,7 +35,7 @@
             border-radius: 10px;
             position: relative;
             background: #ffffff; /* Fondo blanco de la batería */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 20px #4fc3f7;
             overflow: hidden;
             transition: all 0.3s ease;
         }
@@ -108,6 +108,12 @@
             z-index: 2;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Sombra para mejor contraste */
             animation: textPulse 1s ease-in-out infinite;
+            background: linear-gradient(to right, #ffffff, #4fc3f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border: 2px solid #4fc3f7;
+            padding: 5px 10px;
+            border-radius: 5px;
         }
 
         @keyframes textPulse {
@@ -134,7 +140,7 @@
             border-radius: 50%;
             width: 50px;
             height: 50px;
-            animation: spin 1s linear infinite, fadeIn 1s ease-in-out;
+            animation: spin 1s linear infinite, fadeIn 1s ease-in-out, blink 1.5s linear infinite;
             margin-top: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
@@ -154,6 +160,15 @@
             }
             100% {
                 opacity: 1;
+            }
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
             }
         }
 
@@ -217,7 +232,7 @@
                 <div class="battery-bar">
                     <div class="battery-bar-fill" id="battery-bar-fill"></div>
                 </div>
-                <span class="battery-text">100%</span>
+                <span class="battery-text" id="battery-text">0%</span>
             </div>
         </div>
         <div class="loading-text">Cargando, espere...</div>
@@ -225,11 +240,27 @@
     </div>
 
     <script>
-        // Verifica si el elemento existe antes de añadir el listener de eventos
         const batteryBarFill = document.getElementById('battery-bar-fill');
-        if (batteryBarFill) {
+        const batteryText = document.getElementById('battery-text');
+        let percentage = 0;
+
+        if (batteryBarFill && batteryText) {
+            const updateText = () => {
+                percentage++;
+                batteryText.textContent = percentage + '%';
+                if (percentage < 100) {
+                    setTimeout(updateText, 50); // Controla la velocidad del conteo
+                }
+            };
+
+            batteryBarFill.addEventListener('animationstart', updateText);
+            
             batteryBarFill.addEventListener('animationend', () => {
-                window.location.href = 'home.html';
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '0';
+                setTimeout(() => {
+                    window.location.href = 'home.html';
+                }, 500);
             });
         }
     </script>
