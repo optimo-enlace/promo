@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pre-promo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
         body {
             display: flex;
             flex-direction: column;
@@ -172,6 +171,32 @@
             }
         }
 
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: #ffffff;
+            opacity: 0.5;
+            width: 10px;
+            height: 10px;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            /* Ajustes adicionales para pantallas grandes */
+        }
+
         @media (max-width: 768px) {
             .battery {
                 width: 200px;
@@ -239,30 +264,39 @@
         <div class="spinner"></div>
     </div>
 
+    <!-- Partículas flotantes -->
+    <div class="particle" style="top: 10%; left: 20%;"></div>
+    <div class="particle" style="top: 50%; left: 60%;"></div>
+    <div class="particle" style="top: 30%; left: 80%;"></div>
+    <div class="particle" style="top: 80%; left: 40%;"></div>
+
     <script>
         const batteryBarFill = document.getElementById('battery-bar-fill');
         const batteryText = document.getElementById('battery-text');
-        let percentage = 0;
 
-        if (batteryBarFill && batteryText) {
-            const updateText = () => {
-                percentage++;
-                batteryText.textContent = percentage + '%';
-                if (percentage < 100) {
-                    setTimeout(updateText, 50); // Controla la velocidad del conteo
+        batteryBarFill.addEventListener('animationend', () => {
+            document.body.style.transition = 'opacity 0.5s';
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 500);
+        });
+
+        batteryBarFill.addEventListener('animationstart', () => {
+            let startTime = null;
+
+            function updateBatteryText(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / 5000, 1);
+                batteryText.textContent = Math.floor(progress * 100) + '%';
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateBatteryText);
                 }
-            };
+            }
 
-            batteryBarFill.addEventListener('animationstart', updateText);
-            
-            batteryBarFill.addEventListener('animationend', () => {
-                document.body.style.transition = 'opacity 0.5s';
-                document.body.style.opacity = '0';
-                setTimeout(() => {
-                    window.location.href = 'home.html';
-                }, 500);
-            });
-        }
+            requestAnimationFrame(updateBatteryText);
+        });
     </script>
 </body>
 </html>
